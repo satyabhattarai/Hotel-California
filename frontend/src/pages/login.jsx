@@ -6,17 +6,12 @@ const Login = () => {
   const password = useRef();
   const submitlogin = async (e) => {
     e.preventDefault();
-    const logindata = {
-      email: email.current.value,
+    const filters = {
+      username: email.current.value,
       password: password.current.value,
     };
-    console.log(logindata);
+
     try {
-      const filters = {
-        username: logindata.email,
-        password: logindata.password,
-      };
-      console.log(filters);
       const response = await axios.get(
         "http://127.0.0.1:8000/api/login",
         {

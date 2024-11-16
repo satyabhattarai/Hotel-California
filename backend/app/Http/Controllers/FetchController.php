@@ -31,13 +31,10 @@ class FetchController extends Controller
 
 
     if ($username && $password) {
-
         $results = Auth::where('username', $username)
-        ->where('password', $password)
-                        ->get();
+        ->where('password', $password)->get();
         return response()->json($results);
     }
-
     return response()->json(['message' => 'Invalid username or password'], 400);
 }
 

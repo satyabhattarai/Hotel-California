@@ -3,14 +3,10 @@ import  { useState } from "react";
 // // import PizzaMenu from '../components/PizzaMenu';
 
 export default function Menu() {
-    // const [selectedMenu, setSelectedMenu] = useState('general');
-    // return (<div>
-    //     <span onClick={()=>setSelectedMenu("pizza")}>Pizza</span> |
-    //     <span  onClick={()=>setSelectedMenu("general")}>General</span>
 
-    //     {selectedMenu === "pizza" ? <PizzaMenu/> : <div>I am the Generic Menu</div>
-    // }
-    // </div>);
+useEffect(() => {
+  
+});
     const menuItems = [
         {
             src: "https://picsum.photos/200",
@@ -114,6 +110,7 @@ export default function Menu() {
         { name: "Kids Menu" },
         { name: "Combo Meals" },
     ];
+
 
     const [selectedCategory, setSelectedCategory] = useState(
         categories[0].name

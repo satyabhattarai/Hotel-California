@@ -1,79 +1,79 @@
 .animated-button {
-    @apply px-4 py-2 bg-[#CC3333] text-white rounded-md transition-all duration-300 ease-in-out uppercase cursor-pointer font-bold;
+  @apply px-4 py-2 bg-[#CC3333] text-white rounded-md transition-all duration-300 ease-in-out uppercase cursor-pointer font-bold;
 }
 
 .animated-button:hover {
-    @apply bg-[#ef4444] scale-105 shadow-md;
+  @apply bg-[#ef4444] scale-105 shadow-md;
 }
 
 .animated-button-secondary {
-    @apply px-8 py-4  bg-[#CC3333] text-white rounded transition-all duration-300 ease-in-out cursor-pointer uppercase font-bold text-xl;
+  @apply px-8 py-4  bg-[#CC3333] text-white rounded transition-all duration-300 ease-in-out cursor-pointer uppercase font-bold text-xl;
 }
 .animated-button-secondary:hover {
-    @apply bg-[#ef4444] scale-105 shadow-md;
+  @apply bg-[#ef4444] scale-105 shadow-md;
 }
 .card {
-    @apply flex justify-between bg-[#fff8ee] gap-16 rounded-lg p-6 shadow-lg transition-transform ease-in-out duration-300;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* For the custom shadow */
+  @apply flex justify-between bg-[#fff8ee] gap-16 rounded-lg p-6 shadow-lg transition-transform ease-in-out duration-300;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* For the custom shadow */
 }
 
 .card:hover {
-    @apply transform scale-105;
-    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.5); /* Darker shadow on hover */
+  @apply transform scale-105;
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.5); /* Darker shadow on hover */
 }
 
 .title {
-    @apply text-2xl text-[#2a435d] font-semibold;
+  @apply text-2xl text-[#2a435d] font-semibold;
 }
 
 .description {
-    @apply text-xl text-[#2a435d];
+  @apply text-xl text-[#2a435d];
 }
 
 .price {
-    @apply text-2xl text-[#2a435d] font-semibold pt-2;
+  @apply text-2xl text-[#2a435d] font-semibold pt-2;
 }
 
 .image-container {
-    @apply w-32 h-32;
+  @apply w-32 h-32;
 }
 
 .food-image {
-    @apply object-cover w-full h-full transition-transform duration-300 ease-in-out rounded;
+  @apply object-cover w-full h-full transition-transform duration-300 ease-in-out rounded;
 }
 
 .food-image:hover {
-    @apply transform scale-110;
+  @apply transform scale-110;
 }
 
 .masonry-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    grid-gap: 16px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-gap: 16px;
 }
 
 /* Custom height for the items to simulate the masonry effect */
 .masonry-item {
-    background-color: #f3f4f6;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s, box-shadow 0.3s; /* Added transition for smooth effect */
+  background-color: #f3f4f6;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s, box-shadow 0.3s; /* Added transition for smooth effect */
 }
 
 .masonry-item img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover; /* Ensures the image covers the entire area */
-    border-radius: 8px; /* Rounded corners for the images */
-    transition: transform 0.3s; /* Smooth scaling effect on hover */
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Ensures the image covers the entire area */
+  border-radius: 8px; /* Rounded corners for the images */
+  transition: transform 0.3s; /* Smooth scaling effect on hover */
 }
 
 .masonry-item:hover {
-    transform: scale(1.05); /* Slightly enlarge on hover */
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Increase shadow on hover */
+  transform: scale(1.05); /* Slightly enlarge on hover */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Increase shadow on hover */
 }
 
 /* This will vary the heights of items */
 .masonry-item:nth-child(2n) {
-    grid-row: span 2; /* Span 2 rows for every second item */
+  grid-row: span 2; /* Span 2 rows for every second item */
 }

@@ -8,10 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Auth extends Model
 {
 use HasFactory;
-
-    protected $table = 'auth'; // Use the custom table name
-
+    protected $table = 'auth';
     protected $fillable = ['username' , 'password'];
-
 }
 
