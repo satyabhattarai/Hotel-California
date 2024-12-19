@@ -12,12 +12,9 @@ const Login = () => {
     };
 
     try {
-      const response = await axios.get(
-        "http://127.0.0.1:8000/api/login",
-        {
-          params: filters, // Pass filters dynamically as query parameters
-        }
-      );
+      const response = await axios.get("http://127.0.0.1:8000/api/login", {
+        params: filters, // Pass filters dynamically as query parameters
+      });
       if (response.data.length > 0) {
         alert("welcome");
       } else {
@@ -30,7 +27,7 @@ const Login = () => {
     }
   };
   return (
-    <div className="bg-gradient-to-br from-[#FFF8EE] to-[#F0E3E0] w-screen -mx-32">
+    <div className="bg-gradient-to-br from-[#FFF8EE] to-[#F0E3E0] w-screen ">
       <nav className=" sticky z-50 top-0 flex justify-between items-center h-[119px] drop-shadow-xl font-bold bg-[#FFF8EE] px-32 transition-colors duration-300">
         <div className="flex items-center gap-2">
           <img src="Images/logo.svg" alt="logo" />

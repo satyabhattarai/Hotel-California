@@ -1,8 +1,5 @@
-
 const Booked = () => {
-  return (
-    <div className='p-16 bg-white'></div>
-  )
-}
+  return <div className=""></div>;
+};
 
-export default Booked
+export default Booked;
