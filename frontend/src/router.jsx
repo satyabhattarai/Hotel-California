@@ -59,7 +59,7 @@ const router = createBrowserRouter([
         element: <ReservationDashboard />,
       },
       {
-        path: "waiterdashboard",
+        path: "waiter",
         element: <WaiterDashboard />,
       },
       {

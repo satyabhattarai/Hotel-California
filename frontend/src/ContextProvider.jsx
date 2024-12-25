@@ -6,8 +6,9 @@ const StateContext = createContext({
 });
 
 export const ContextProvider = ({ children }) => {
-  const [user, set_user] = useState("hi");
-  const [token, set_token] = useState("");
+  const [user, set_user] = useState("");
+  const [role, set_role] = useState("");
+
   const [orders, setshoworders] = useState(false);
   const [cleaningalert, setcleaningalert] = useState(false);
   const [extraitemalert, setextraitemalert] = useState(false);
@@ -20,8 +21,8 @@ export const ContextProvider = ({ children }) => {
       value={{
         user,
         set_user,
-        token,
-        set_token,
+        role,
+        set_role,
         orders,
         setshoworders,
         cleaningalert,

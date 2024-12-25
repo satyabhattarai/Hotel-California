@@ -6,11 +6,7 @@ const Fetch = () => {
   const [data, set_data] = useState();
   const fetch = async () => {
     try {
-      const filters = { key: "name", value: "satya bhattarai" };
-      console.log(filters);
-      const response = await axios.get("http://127.0.0.1:8000/api/fetch", {
-        params: filters, // Pass filters dynamically as query parameters
-      });
+      const response = await axios.get("http://127.0.0.1:8000/api/fetch");
       set_data(response.data);
       console.log(response.data);
     } catch (error) {

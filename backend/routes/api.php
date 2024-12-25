@@ -7,5 +7,10 @@ use App\Http\Controllers\FetchController;
 
 Route::post('/forms', [FormController::class, 'store']);
 Route::get('/fetch', [FetchController::class, 'index']);
+Route::get('/menu', [FetchController::class, 'fetch_menu']);
+
 Route::get('/login', [FetchController::class, 'login']);
+Route::post('/client/check_number', [FetchController::class, 'client_check_number']);
 Route::post('/signup', [FormController::class, 'signup']);
+Route::post('/client/register', [FormController::class, 'client_register']);
+

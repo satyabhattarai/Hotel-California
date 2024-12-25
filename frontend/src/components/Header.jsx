@@ -28,18 +28,9 @@ const Header = () => {
           </li>
         </ul>
         <div className="flex gap-8 mr-8">
-          <Link to="/login">
+          <div>
             <button className="animated-button">Login</button>
-          </Link>
-          <Link to="/waiterdashboard">
-            <button className="animated-button">Waiter</button>
-          </Link>
-          <Link to="/chefportal">
-            <button className="animated-button">Chef</button>
-          </Link>
-          <Link to="/managerdashboard">
-            <button className="animated-button">Manager</button>
-          </Link>
+          </div>
         </div>
       </nav>
     </div>

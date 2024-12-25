@@ -1,16 +1,17 @@
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import "react-multi-carousel/lib/styles.css";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import Carousel from "react-multi-carousel";
+import ClientLogin from "../components/Client/ClientLogin";
 import { Link } from "react-router-dom";
 import { Carousel as ResponsiveCarousel } from "react-responsive-carousel";
 import { gsap } from "gsap";
 
 export default function Home() {
   const box1Ref = useRef(null);
-
+  const [showForm, setShowForm] = useState(false);
   useEffect(() => {
     gsap.to(box1Ref.current, { x: 50, duration: 2 });
   }, []);
@@ -52,6 +53,7 @@ export default function Home() {
 
   return (
     <>
+      {showForm && <ClientLogin setShowForm={setShowForm} />}
       <div className="grid grid-cols-2 pt-8 ">
         <div className="">
           <span className="text-[#c74040] text-md font-semibold">
@@ -65,6 +67,9 @@ export default function Home() {
           <div className="pt-8">
             <button
               ref={box1Ref}
+              onClick={() => {
+                setShowForm(!showForm);
+              }}
               className="px-8 py-4 bg-[#CC3333] text-white font-bold rounded uppercase hover:bg-[#ef4444] text-xl"
             >
               Order now

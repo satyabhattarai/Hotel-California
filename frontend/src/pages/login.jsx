@@ -2,24 +2,26 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import { useRef } from "react";
 const Login = () => {
-  const email = useRef();
+  const username = useRef();
   const password = useRef();
   const submitlogin = async (e) => {
     e.preventDefault();
     const filters = {
-      username: email.current.value,
+      username: username.current.value,
       password: password.current.value,
     };
 
     try {
       const response = await axios.get("http://127.0.0.1:8000/api/login", {
-        params: filters, // Pass filters dynamically as query parameters
+        params: filters, 
       });
       if (response.data.length > 0) {
-        alert("welcome");
+        alert(response.data[0].role);
+        localStorage.setItem("USER", response.data[0].username);
+        localStorage.setItem("ROLE", response.data[0].role);
       } else {
         {
-          alert("wrong");
+          alert("wrong credentials");
         }
       }
     } catch (error) {
@@ -43,12 +45,12 @@ const Login = () => {
           <h1 className="text-[#2A435D] text-3xl font-bold pb-16">Login</h1>
 
           <label className="text-[#395471] font-semibold">
-            Email
+            Username
             <input
               type="text"
               autoComplete="off"
-              id="email"
-              ref={email}
+              id="username"
+              ref={username}
               className="block w-1/2 px-4 py-2 transition-shadow duration-300 border rounded-lg focus:shadow-outline focus:outline-none focus:border-red-600 required:"
             />
           </label>

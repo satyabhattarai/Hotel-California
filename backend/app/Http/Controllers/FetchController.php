@@ -3,22 +3,26 @@
 namespace App\Http\Controllers;
 use App\Models\Fetch;
 use App\Models\Auth;
+use App\Models\Client;
+use App\Models\Menu;
+
 use Illuminate\Http\Request;
 
 class FetchController extends Controller
 {
-   public function index(Request $request)
+   public function index()
     {
-        $filterKey = $request->input('key');   // Retrieve the filter key
-        $filterValue = $request->input('value'); // Retrieve the filter value
 
-        // Ensure the key and value exist before querying
-        if ($filterKey && $filterValue) {
-            $results = Fetch::where($filterKey, $filterValue)->get();
+            $results = Fetch::get();
             return response()->json($results);
-        }
 
-        return response()->json($results);
+    }
+    public function fetch_menu()
+    {
+
+            $results = Menu::get();
+            return response()->json($results);
+
     }
 
 
@@ -38,8 +42,31 @@ class FetchController extends Controller
     return response()->json(['message' => 'Invalid username or password'], 400);
 }
 
+// for checking client number already exists or not
+
+  public function client_check_number(Request $request)
+{
+    $number = $request->input('number');
+
+    // Find the client by their number
+    $client = Client::where('number', $number)->first(); // Use first() instead of get() to get a single record
+
+    // Check if the client exists
+    if ($client) {
+        $client->visits = $client->visits + 1;
+        $client->save();
+        return response()->json([
+            'message' => 'Client found',
+            'name' => $client->name,
+        ]);
+    } else {
+        return response()->json([
+            'message' => 'Client not found',
+        ]);
+    }
 }
 
 
 
-// for signup
+
+}

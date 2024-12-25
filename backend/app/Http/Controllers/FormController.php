@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Form;
+use App\Models\Client;
 use App\Models\Auth;
 
 class FormController extends Controller
@@ -29,6 +30,22 @@ class FormController extends Controller
         ]);
 
         $form = Auth::create($validated);
+
+        return response()->json(['message' => 'User created successfully'], 201);
+    }
+
+
+
+    // for new client register
+    public function client_register(Request $request)
+    {
+         $validated = $request->validate([
+        'name' => 'required|string|max:255',
+        'number' => 'required|numeric',
+        'visits' => 'required|integer',
+    ]);
+
+        $form = Client::create($validated);
 
         return response()->json(['message' => 'User created successfully'], 201);
     }
