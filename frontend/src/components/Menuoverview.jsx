@@ -1,7 +1,8 @@
 import React from "react";
 
-export default function Menuoverview({ overview, setoverview, menu }) {
+export default function Menuoverview({ overview, setoverview, menu, setOrders }) {
   const handleAddToCart = () => {
+    setOrders(prev => [...prev, {name: menu.name, price: menu.price, desc: menu.desc, category: menu.category}]);
     alert("Item added to cart!"); // Replace this with actual cart logic
   };
 

@@ -8,15 +8,16 @@ import { useStateContext } from "../ContextProvider";
 // // import PizzaMenu from '../components/PizzaMenu';
 
 export default function Menu() {
+	const baseUrl = process.env.REACT_APP_BACKEND_URL;
   const [MenuItems, set_MenuItems] = useState([]);
   const [overview, setoverview] = useState();
-
+  const [orderItems, setOrderItems] = useState([]);
   useEffect(() => {
     fetchMenu();
   }, []);
   const fetchMenu = async () => {
     try {
-      const response = await axios.get("http://127.0.0.1:8000/api/menu");
+      const response = await axios.get(baseUrl + "/api/menu");
       console.log(response.data);
       set_MenuItems(response.data);
     } catch (error) {
@@ -152,6 +153,7 @@ export default function Menu() {
             overview={overview}
             setoverview={setoverview}
             menu={selectedmenu}
+            setOrders={setOrderItems}
           />
         )}
       </div>
@@ -165,7 +167,7 @@ export default function Menu() {
           SEE YOUR ORDERS
         </button>
       </div>
-      {orders && <OrdersDashboard setshoworders={setshoworders} />}
+      {orders && <OrdersDashboard setshoworders={setshoworders} orders={orderItems} />}
     </div>
   );
 }

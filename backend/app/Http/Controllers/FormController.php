@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Form;
 use App\Models\Client;
 use App\Models\Auth;
+use App\Models\Order;
 
 class FormController extends Controller
 {
@@ -49,4 +50,25 @@ class FormController extends Controller
 
         return response()->json(['message' => 'User created successfully'], 201);
     }
+
+
+    public function order_item(Request $request)
+    {
+        // $validated = $request->validate([
+        //     'name' => 'required|string|max:255',
+        //     'price' => 'required|string|max:255',
+        //     'desc' => 'required|string|max:255',
+        //     'category'=> 'required|string|max:255',
+        // ]);
+        $orders = $request->orders;
+        $time=now();
+
+        $orders = array_map(function ($order) use ($time){
+            return $order + ['created_at'=>$time, 'updated_at'=>$time];
+        }, $orders);
+        Order::insert($orders);
+
+        return response()->json(['message' => 'Order created successfully'], 201);
+    }
+
 }
