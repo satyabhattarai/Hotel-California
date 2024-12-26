@@ -2,9 +2,21 @@ import React, { useState } from "react";
 
 import AddExtraItem from "../components/AddExtraItem";
 import { useStateContext } from "../ContextProvider";
+import axios from "axios";
 
-export default function OrdersDashboard({ setshoworders }) {
+export default function OrdersDashboard({ setshoworders, orders }) {
   const { showItems, setShowItems } = useStateContext();
+  const baseUrl = process.env.REACT_APP_BACKEND_URL;
+
+  const handlePlaceOrder = async () => {
+    try{
+      const result = await axios.post(baseUrl+'/api/order', {orders: orders});
+      console.log(result);
+    }catch(e){
+      console.log(e);
+    }
+  }
+
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
       <div className="bg-white w-[90%] max-w-4xl rounded-lg shadow-lg overflow-hidden">
@@ -26,39 +38,23 @@ export default function OrdersDashboard({ setshoworders }) {
           <h3 className="mb-4 text-xl font-bold">Order Details</h3>
           {/* Orders Table */}
           <table className="w-full text-left border border-collapse border-gray-300 table-auto">
-            <thead className="bg-gray-100">
-              <tr>
+            <thead>
+              <tr className="bg-gray-100">
                 <th className="px-4 py-2 border border-gray-300">Dish</th>
                 <th className="px-4 py-2 border border-gray-300">
                   Time to Cook
                 </th>
-                <th className="px-4 py-2 border border-gray-300">Chef</th>
               </tr>
             </thead>
             <tbody>
-              <tr>
+              {orders && orders.map(orderItem => (
+              <tr key={orderItem.name}>
                 <td className="px-4 py-2 border border-gray-300">
-                  Grilled Salmon
+                  {orderItem.name}
                 </td>
                 <td className="px-4 py-2 border border-gray-300">30 mins</td>
-                <td className="px-4 py-2 border border-gray-300">Hem Raj</td>
               </tr>
-              <tr>
-                <td className="px-4 py-2 border border-gray-300">
-                  Caesar Salad
-                </td>
-                <td className="px-4 py-2 border border-gray-300">15 mins</td>
-                <td className="px-4 py-2 border border-gray-300">
-                  Alice Smith
-                </td>
-              </tr>
-              <tr>
-                <td className="px-4 py-2 border border-gray-300">
-                  Margherita Pizza
-                </td>
-                <td className="px-4 py-2 border border-gray-300">25 mins</td>
-                <td className="px-4 py-2 border border-gray-300">John Doe</td>
-              </tr>
+              ))}
             </tbody>
           </table>
 
@@ -69,6 +65,12 @@ export default function OrdersDashboard({ setshoworders }) {
               onClick={() => setShowItems(true)}
             >
               Add More Items
+            </button>
+            <button
+              className="px-6 py-2 text-white bg-blue-500 rounded hover:bg-blue-600"
+              onClick={handlePlaceOrder}
+            >
+              Place your order
             </button>
             <p className="text-gray-500">
               Want to add something else? Click the button!

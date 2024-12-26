@@ -14,3 +14,4 @@ Route::post('/client/check_number', [FetchController::class, 'client_check_numbe
 Route::post('/signup', [FormController::class, 'signup']);
 Route::post('/client/register', [FormController::class, 'client_register']);
 
+Route::post('/order', [FormController::class, 'order_item']);
