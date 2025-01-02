@@ -1,14 +1,24 @@
-import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 import { IoIosWarning } from "react-icons/io";
 import { IoMdClose } from "react-icons/io";
-import { useNavigate } from "react-router-dom";
+import { Outlet } from "react-router-dom";
+import { useEffect } from "react";
 import { useStateContext } from "../../ContextProvider";
 
 const WaiterDashboard = () => {
   const { cleaningalert, setcleaningalert } = useStateContext();
   const { extraitemalert, setextraitemalert } = useStateContext();
-  const navigate = useNavigate();
+  useEffect(() => {
+    console.log("Cleaning alert state:", cleaningalert);
+    if (cleaningalert) {
+      alert("Cleaning Alert received!");
+      setcleaningalert(false);
+      // Reset the alert state after showing the popup
+    }
+  }, [cleaningalert]);
+
+  // const navigate = useNavigate();
   return (
     <>
       <div className="flex min-h-screen bg-red-50">
@@ -19,30 +29,37 @@ const WaiterDashboard = () => {
           </div>
           <ul>
             <li className="p-2 mb-4 rounded-lg hover:bg-red-500">
-              <a href="#" className="block text-lg">
-                Cleaning Alert
-              </a>
+              <Link to="/waiter/cleaningalert" className="block text-lg">
+                Cleaning Alerts
+              </Link>
             </li>
             <li className="p-2 mb-4 rounded-lg hover:bg-red-500">
-              <a href="#" className="block text-lg">
-                Add Item Alert
-              </a>
+              <Link to="/waiter/itemsalert" className="block text-lg">
+                Items Alert
+              </Link>
             </li>
             <li className="p-2 mb-4 rounded-lg hover:bg-red-500">
-              <a href="#" className="block text-lg">
-                Table Reserved Dashboard
-              </a>
+              <Link to="tablereserved" className="block text-lg">
+                Reserved Tables
+              </Link>
             </li>
             <li className="p-2 mb-4 rounded-lg hover:bg-red-500">
-              <a href="#" className="block text-lg">
+              <Link to="tablestatus" className="block text-lg">
+                Table Status
+              </Link>
+            </li>
+            <li className="p-2 mb-4 rounded-lg hover:bg-red-500">
+              <Link to="/waiter/reviews" className="block text-lg">
                 Reviews
-              </a>
+              </Link>
             </li>
           </ul>
         </div>
 
         {/* Main Content */}
+
         <div className="flex-1 p-8">
+          <Outlet />
           <h1 className="mb-6 text-4xl font-bold text-red-600">
             Waiter Dashboard
           </h1>
@@ -128,7 +145,7 @@ const WaiterDashboard = () => {
         </div>
       </div>
       {cleaningalert && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center h-screen">
+        <div className="fixed inset-0 flex items-center justify-center h-screen">
           <div className="  w-[600px] h-[150px] bg-gradient-to-r from-red-400 via-red-500 to-red-600 rounded-lg shadow-lg transform transition-transform hover:scale-105">
             <IoMdClose
               id="closebutton"
@@ -156,10 +173,10 @@ const WaiterDashboard = () => {
             <div className="flex justify-center mb-8 ">
               <button
                 className="px-4 py-2 text-center text-black bg-gray-300 rounded "
-                onClick={() => {
-                  navigate("/extraitemsdashboard");
-                  console.log("clicked");
-                }}
+                // onClick={() => {
+                //   navigate("/");
+                //   console.log("clicked");
+                // }}
               >
                 View Item
               </button>

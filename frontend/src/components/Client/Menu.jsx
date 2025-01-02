@@ -1,17 +1,16 @@
 import { useEffect, useState } from "react";
 
-import Menuoverview from "../components/Menuoverview";
-import OrdersDashboard from "../components/OrdersDashboard";
+import Menuoverview from "../Menuoverview";
+import OrdersDashboard from "../OrdersDashboard";
+import React from "react";
 import axios from "axios";
-import { useStateContext } from "../ContextProvider";
-
-// // import PizzaMenu from '../components/PizzaMenu';
-
-export default function Menu() {
+import { useStateContext } from "../../ContextProvider";
+const Menu = () => {
   const baseUrl = process.env.REACT_APP_BACKEND_URL;
   const [MenuItems, set_MenuItems] = useState([]);
   const [overview, setoverview] = useState();
   const [orderItems, setOrderItems] = useState([]);
+  const { orders, setshoworders } = useStateContext();
   useEffect(() => {
     fetchMenu();
   }, []);
@@ -25,22 +24,7 @@ export default function Menu() {
       console.error("Error fetching data:", error);
     }
   };
-  const { orders, setshoworders } = useStateContext();
-  const { cleaningalert, setcleaningalert } = useStateContext();
-  const handleCleaningAlert = async () => {
-    try {
-      // Update the state to true before sending the request
-      setcleaningalert(true);
-      const result = await axios.post(baseUrl + "/api/cleanalert", {
-        tablenumber: 1,
-        status: true,
-        alert_message: "Alert Created",
-      });
-      console.log(result);
-    } catch (e) {
-      console.log(e);
-    }
-  };
+
   const categories = [
     { name: "All" },
     { name: "Breakfast" },
@@ -66,53 +50,7 @@ export default function Menu() {
   const [selectedCategory, setSelectedCategory] = useState(categories[0].name);
   const [selectedmenu, setselectedmenu] = useState(null);
   return (
-    <div className="">
-      <div className="h-[300px] w-screen ">
-        <img
-          className="object-cover w-full h-full"
-          src="Images/Food.jpg"
-          alt="menu"
-        />
-      </div>
-      {/* <!-- first part --> */}
-      <div className="flex flex-col items-center justify-between gap-8 py-8 lg:py-16 lg:flex-row">
-        <div className="flex-shrink-0">
-          <img src="https://picsum.photos/500/200" alt="picture" className="" />
-        </div>
-        <div className="lg:max-w-[50%] text-justify max-w-full">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-          aliquip ex ea commodo consequat. Duis aute irure dolor in
-          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-          pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-          culpa qui officia deserunt mollit anim id est laborum.Lorem ipsum
-          dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-          incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-          quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-          commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-          velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
-          occaecat cupidatat non proident, sunt in culpa qui officia deserunt
-          mollit anim id est laborum.
-        </div>
-      </div>
-      {/* <!-- second part --> */}
-      <div className="flex flex-col items-center justify-between gap-8 lg:flex-row">
-        <div className="flex gap-8">
-          <img src="https://picsum.photos/200/200" alt="" />
-          <img src="https://picsum.photos/200/200" alt="" />
-        </div>
-        <button
-          className=" animated-button-secondary"
-          onClick={() => handleCleaningAlert()}
-        >
-          Cleaning Alert
-        </button>
-      </div>
-
-      <div className="text-[#c74040] text-4xl font-bold text-center py-16">
-        Menu
-      </div>
+    <div>
       <div className="flex flex-wrap gap-4 pb-8 lg:gap-8 lg:pb-8 lg:p-2">
         {categories.map((cat, index) => (
           <span
@@ -135,7 +73,7 @@ export default function Menu() {
           } else {
             return menu.category === selectedCategory;
           }
-        }).map((menu, index) => (
+        })?.map((menu, index) => (
           <div
             className="card"
             key={index}
@@ -179,4 +117,6 @@ export default function Menu() {
       )}
     </div>
   );
-}
+};
+
+export default Menu;

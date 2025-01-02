@@ -1,15 +1,16 @@
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import "react-multi-carousel/lib/styles.css";
 
+import { Link, useParams } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
 
 import Carousel from "react-multi-carousel";
 import ClientLogin from "../components/Client/ClientLogin";
-import { Link } from "react-router-dom";
 import { Carousel as ResponsiveCarousel } from "react-responsive-carousel";
 import { gsap } from "gsap";
 
 export default function Home() {
+  const { id } = useParams();
   const box1Ref = useRef(null);
   const [showForm, setShowForm] = useState(false);
   useEffect(() => {
@@ -68,7 +69,17 @@ export default function Home() {
             <button
               ref={box1Ref}
               onClick={() => {
-                setShowForm(!showForm);
+                if (id) {
+                  localStorage.setItem("TABLE_NUMBER", id);
+                  if (!localStorage.getItem("CLIENT")) {
+                    setShowForm(true);
+                  } else {
+                    window.location.href = "/client/menu";
+                  }
+                } else {
+                  alert("scan the QR code on the Table");
+                  window.location.href = "/";
+                }
               }}
               className="px-8 py-4 bg-[#CC3333] text-white font-bold rounded uppercase hover:bg-[#ef4444] text-xl"
             >

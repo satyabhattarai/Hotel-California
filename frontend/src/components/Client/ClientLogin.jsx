@@ -1,6 +1,7 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 import axios from "axios";
+import { useParams } from "react-router-dom";
 
 const ClientLogin = ({ setShowForm }) => {
   const number = useRef();
@@ -12,7 +13,6 @@ const ClientLogin = ({ setShowForm }) => {
 
   const checkNumber = async (e) => {
     e.preventDefault();
-
     const filters = {
       number: number.current.value,
     };
@@ -25,6 +25,7 @@ const ClientLogin = ({ setShowForm }) => {
 
       if (response.data.message === "Client found") {
         localStorage.setItem("CLIENT", response.data.name);
+        localStorage.setItem("PHONE", response.data.number);
         set_showCheckNumber(false);
         set_showRegisterName(false);
         set_showWelcome(true);
@@ -54,7 +55,8 @@ const ClientLogin = ({ setShowForm }) => {
       alert(response.data.message);
       set_showCheckNumber(false);
       set_showRegisterName(false);
-      localStorage.setItem('CLIENT',formData.name)
+      localStorage.setItem("CLIENT", formData.name);
+      localStorage.setItem("PHONE", formData.number);
       set_showWelcome(true);
     } catch (error) {
       console.error(error.response.data);
@@ -96,6 +98,7 @@ const ClientLogin = ({ setShowForm }) => {
               className="mt-5 text-center text-black cursor-pointer hover:text-red-400"
               onClick={() => {
                 setShowForm(false);
+                window.location.reload();
               }}
             >
               close
@@ -130,6 +133,7 @@ const ClientLogin = ({ setShowForm }) => {
               className="mt-5 text-center text-black cursor-pointer hover:text-red-400"
               onClick={() => {
                 setShowForm(false);
+                window.location.reload();
               }}
             >
               close
@@ -145,6 +149,7 @@ const ClientLogin = ({ setShowForm }) => {
               className="mt-5 text-center text-black cursor-pointer hover:text-red-400"
               onClick={() => {
                 setShowForm(false);
+                window.location.reload();
               }}
             >
               close

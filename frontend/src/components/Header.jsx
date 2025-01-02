@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 
 const Header = () => {
+  const user = localStorage.getItem("CLIENT");
   return (
     <div className="w-screen">
       <div className=" flex bg-[#c74040] w-full h-[35px] items-center gap-8 px-8 drop-shadow-md ">
@@ -28,9 +29,29 @@ const Header = () => {
           </li>
         </ul>
         <div className="flex gap-8 mr-8">
-          <div>
-            <button className="animated-button">Login</button>
-          </div>
+          {user && (
+            <div className="flex items-center justify-center gap-5">
+              <button
+                className="animated-button"
+                onClick={() => {
+                  window.location.href = "/client";
+                }}
+              >
+                {user}
+              </button>
+              <div
+                onClick={() => {
+                  localStorage.removeItem("CLIENT");
+                  localStorage.removeItem("PHONE");
+                  localStorage.removeItem("TABLE_NUMBER");
+                  window.location.href = "/";
+                }}
+                className="cursor-pointer hover:text-red-500"
+              >
+                log out
+              </div>
+            </div>
+          )}
         </div>
       </nav>
     </div>
