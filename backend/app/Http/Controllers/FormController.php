@@ -4,11 +4,14 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Form;
+use App\Models\Alert;
 use App\Models\Client;
 use App\Models\Auth;
 use App\Models\CleanAlert;
 use App\Models\Order;
+use App\Models\Menu;
 use App\Models\History;
+use App\Models\Reservation;
 use Illuminate\Support\Facades\Storage;
 
 
@@ -100,6 +103,7 @@ class FormController extends Controller
     //upload history of client
     public function client_history_upload(Request $request)
     {
+
         $request->validate([
             'file' => 'required|mimes:pdf|max:2048',
             'user_name' => 'required|string',
@@ -146,4 +150,128 @@ class FormController extends Controller
 
         return response()->json(['message' => 'File not found.'], 404);
     }
+
+
+
+
+// reservation
+
+public function client_reservation(Request $request)
+    {
+        \Log::info('Request payload:', $request->all());
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'number' => 'required|string|max:15',
+            'address' => 'required|string|max:255',
+            'date' => 'required|date',
+            'time' => 'required',
+            'size' => 'required|integer|min:1',
+            'table_number' => 'required|string|max:10',
+            'message' => 'nullable|string',
+        ]);
+
+        try {
+            $reservation = Reservation::create($request->all());
+            return response()->json(['message' => 'Reservation successfully created!', 'data' => $reservation], 201);
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'An error occurred while creating the reservation.', 'error' => $e->getMessage()], 500);
+        }
+    }
+
+
+
+    //request chef
+    public function chef_request(Request $request)
+{
+    $request->validate([
+        'user' => 'required|string',
+        'rank' => 'required|in:CHEF,MANAGER,STAFF',
+        'message' => 'nullable|string',
+        'table_number' => 'nullable|string',
+        'type' => 'nullable|in:CLEANING,CALL,OTHER',
+        'status' => 'nullable|in:PENDING,COMPLETED',
+    ]);
+
+    try {
+        $alert = Alert::create($request->all());
+        return response()->json(['message' => 'Alert successfully created!', 'data' => $alert], 201);
+    } catch (\Exception $e) {
+        return response()->json(['message' => 'An error occurred while creating the alert.', 'error' => $e->getMessage()], 500);
+    }
+}
+
+
+
+
+
+
+//add menu
+
+public function menu_add(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'category' => 'required|string',
+            'alt' => 'nullable|string',
+            'waiting_time' => 'nullable|integer',
+            'desc' => 'nullable|string',
+            'price' => 'required|numeric',
+            'ingredients' => 'nullable|string',
+        ]);
+
+        // Handle Image Upload
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('menu_images', 'public');
+        }
+
+        // Create menu item
+        $menu = Menu::create([
+            'name' => $request->name,
+            'image' => $imagePath ?? null,
+            'category' => $request->category,
+            'alt' => $request->alt,
+            'waiting_time' => $request->waiting_time,
+            'desc' => $request->desc,
+            'price' => $request->price,
+            'ingredients' => $request->ingredients,
+        ]);
+
+        return response()->json(['message' => 'Menu item added successfully!', 'menu' => $menu]);
+    }
+
+
+
+    public function employee_register(Request $request)
+    {
+
+        $request->validate([
+            'username' => 'required|unique:auth,username',
+            'password' => 'required',
+            'rank' => 'required|in:MANAGER,CHEF,STAFF',
+            'address' => 'required',
+            'phone' => 'required',
+            'image' => 'required|image',
+        ]);
+
+
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('images', 'public');
+        }
+
+
+        $auth = Auth::create([
+            'username' => $request->username,
+            'password' => $request->password,
+            'rank' => $request->rank,
+            'address' => $request->address,
+            'phone' => $request->phone,
+            'image' => $imagePath ?? null,
+        ]);
+
+        return response()->json($auth, 201);
+    }
+
+
+
 }

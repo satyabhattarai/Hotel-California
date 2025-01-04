@@ -1,28 +1,68 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+
+import axios from "axios";
 
 const Attendance = () => {
+  const [attendance, setAttendance] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get("http://127.0.0.1:8000/api/manager/attendance")
+      .then((response) => {
+        setAttendance(response.data.attendance);
+      })
+      .catch((error) => {
+        console.error("Error fetching attendance:", error);
+      });
+  }, []);
+
   return (
-    <div>
-      <div className="mb-24 ">
-        <h2 className="mb-4 text-xl font-bold text-gray-700">Attendance</h2>
-        <table className="w-full border border-gray-300">
+    <div className="container p-6 mx-auto">
+      <h2 className="mb-6 text-2xl font-bold text-center text-red-600">
+        All Attendance Records (Sorted by Date - Descending)
+      </h2>
+      <div className="overflow-x-auto rounded-lg shadow-lg">
+        <table className="w-full bg-white border-collapse rounded-lg table-auto">
           <thead>
-            <tr className="bg-red-100">
-              <th className="px-4 py-2 border">Name</th>
-              <th className="px-4 py-2 border">Designation</th>
-              <th className="px-4 py-2 border">Status</th>
-              <th className="px-4 py-2 border">Date</th>
-              <th className="px-4 py-2 border">Remarks</th>
+            <tr className="text-sm leading-normal text-white uppercase bg-red-600">
+              <th className="px-6 py-3 text-left">Date</th>
+              <th className="px-6 py-3 text-left">User Name</th>
+              <th className="px-6 py-3 text-left">User Number</th>
+              <th className="px-6 py-3 text-left">Rank</th>
+              <th className="px-6 py-3 text-left">Status</th>
             </tr>
           </thead>
-          <tbody>
-            <tr>
-              <td className="px-4 py-2 border">Ram Sharma</td>
-              <td className="px-4 py-2 border">Chef</td>
-              <td className="px-4 py-2 text-green-600 border">Present</td>
-              <td className="px-4 py-2 border">2024-12-19</td>
-              <td className="px-4 py-2 border">On Time</td>
-            </tr>
+          <tbody className="text-sm font-light text-gray-700">
+            {attendance.length > 0 ? (
+              attendance.map((record, index) => (
+                <tr
+                  key={record.id}
+                  className={`border-b ${
+                    index % 2 === 0 ? "bg-gray-100" : "bg-white"
+                  } hover:bg-gray-200`}
+                >
+                  <td className="px-6 py-3">{record.date}</td>
+                  <td className="px-6 py-3">{record.user_name}</td>
+                  <td className="px-6 py-3">{record.user_number}</td>
+                  <td className="px-6 py-3">{record.rank}</td>
+                  <td
+                    className={`py-3 px-6 font-semibold ${
+                      record.status === "PRESENT"
+                        ? "text-green-600"
+                        : "text-red-600"
+                    }`}
+                  >
+                    {record.status}
+                  </td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td colSpan="5" className="py-4 text-center text-gray-500">
+                  No attendance records found.
+                </td>
+              </tr>
+            )}
           </tbody>
         </table>
       </div>

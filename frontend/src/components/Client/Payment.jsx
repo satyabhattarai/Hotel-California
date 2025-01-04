@@ -19,12 +19,6 @@ const Payment = () => {
   }, []);
 
   const deleteOrders = async () => {
-    // Confirm the action
-    const confirmDelete = window.confirm(
-      "Are you sure you want to delete all orders?"
-    );
-    if (!confirmDelete) return;
-
     // Iterate over each food item and delete it
     try {
       for (let item of foodItems) {
@@ -34,8 +28,10 @@ const Payment = () => {
       }
 
       set_foodItems([]);
-      // Redirect after deletion
-      window.location.href = "client"; // Or use `history.push("/client")` for a React Router redirect
+      localStorage.removeItem("CLIENT");
+      localStorage.removeItem("PHONE");
+      localStorage.removeItem("TABLE_NUMBER");
+      window.location.href = "/";
     } catch (error) {
       console.error("Error deleting records:", error);
       alert("Error deleting records. Please try again.");
@@ -104,10 +100,11 @@ const Payment = () => {
   };
 
   const calculateTotal = () => {
-    return foodItems.reduce(
+    const total = foodItems.reduce(
       (total, item) => total + item.price * item.quantity,
       0
     );
+    return parseFloat(total.toFixed(3));
   };
 
   const downloadPDF = () => {
@@ -170,6 +167,11 @@ const Payment = () => {
   };
 
   const saveHistory = () => {
+    // Confirm the action
+    const confirmDelete = window.confirm(
+      "Are you sure you want to finish all orders?"
+    );
+    if (!confirmDelete) return;
     const doc = new jsPDF();
 
     doc.setFontSize(18);
@@ -202,6 +204,7 @@ const Payment = () => {
     // Convert PDF to Blob
     const pdfBlob = doc.output("blob");
     uploadPDF(pdfBlob);
+    deleteOrders();
   };
 
   return (
@@ -216,7 +219,7 @@ const Payment = () => {
         <div>TABLE NO.: {table_number}</div>
         <div>PHONE: {userNumber}</div>
         <div>Restaurent: Hotel California</div>
-        <div>Date:paymentDate </div>
+        <div>Date: {paymentDate} </div>
       </div>
       <div className="mt-4">
         <table className="w-full text-left">
@@ -242,10 +245,12 @@ const Payment = () => {
               ))}
           </tbody>
         </table>
-        <div className="flex items-center justify-between mt-4 text-lg font-semibold">
-          <span>Total Amount:</span>
-          <span className="text-green-600">${calculateTotal()}</span>
-        </div>
+        {foodItems && (
+          <div className="flex items-center justify-between mt-4 text-lg font-semibold">
+            <span>Total Amount:</span>
+            <span className="text-green-600">${calculateTotal()}</span>
+          </div>
+        )}
       </div>
       <div className="mt-6">
         <button
@@ -260,7 +265,6 @@ const Payment = () => {
         <button
           onClick={() => {
             saveHistory();
-            deleteOrders();
           }}
           className="w-full py-3 text-white bg-blue-500 rounded-lg hover:bg-blue-600"
         >

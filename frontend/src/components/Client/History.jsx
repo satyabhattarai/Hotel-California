@@ -9,8 +9,8 @@ const History = () => {
   const [results, setResults] = useState([]);
   const baseUrl = process.env.REACT_APP_BACKEND_URL;
   useEffect(() => {
-    fetchVisits(); // For visits
-    fetchHistory(); // For history data
+    fetchVisits(); 
+    fetchHistory();
   }, []);
 
   const fetchHistory = async () => {
@@ -48,7 +48,7 @@ const History = () => {
         { responseType: "blob" } // Ensures the response is treated as a file (binary)
       );
 
-      // Create a URL for the file and trigger the download
+
       const url = window.URL.createObjectURL(new Blob([response.data]));
       const link = document.createElement("a");
       link.href = url;

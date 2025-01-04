@@ -20,7 +20,6 @@ const Dashboard = () => {
   }, []);
   const fetchOrders = async () => {
     const number = localStorage.getItem("PHONE");
-
     try {
       const response = await axios.get(
         "http://127.0.0.1:8000/api/client/fetch_order",
@@ -35,10 +34,16 @@ const Dashboard = () => {
     }
   };
 
-  const totalAmount = foodOrders.reduce(
-    (total, order) => total + order.price * order.quantity,
-    0
-  );
+  const totalAmount = () => {
+    if (foodOrders) {
+      return foodOrders.reduce(
+        (total, order) => total + order.price * order.quantity,
+        0
+      );
+    } else {
+      return 0;
+    }
+  };
 
   return (
     <div className="p-6 bg-white ">
@@ -63,49 +68,61 @@ const Dashboard = () => {
             </tr>
           </thead>
           <tbody>
-            {foodOrders.map((order) => (
-              <tr key={order.id} className="hover:bg-red-50">
-                <td className="px-4 py-2 border">{order.id}</td>
-                <td className="px-4 py-2 border">{order.name}</td>
-                <td className="px-4 py-2 border">{order.desc}</td>
-                <td className="px-4 py-2 border">{order.price}</td>
-                <td className="px-4 py-2 border">{order.quantity}</td>
-                <td className="px-4 py-2 border">
-                  ${order.price * order.quantity}
-                </td>
-                <td className="px-4 py-2 border">
-                  <span
-                    className={`px-2 py-1 rounded text-white ${
-                      order.status === "DELIVERED"
-                        ? "bg-green-500"
-                        : order.status === "PROGRESSING"
-                        ? "bg-yellow-500"
-                        : "bg-red-500"
-                    }`}
-                  >
-                    {order.status}
-                  </span>
-                </td>
-                <td className="px-4 py-2 border">{order.waiting_time}</td>
-                <td className="px-4 py-2 text-center border">
-                  <button
-                    onClick={() => {
-                      handle_deleteOrder(order.id);
-                    }}
-                    className="px-4 py-2 text-white bg-red-500 rounded hover:bg-red-600"
-                  >
-                    Cancel Order
-                  </button>
-                </td>
-              </tr>
-            ))}
+            {foodOrders &&
+              foodOrders?.map((order) => (
+                <tr key={order.id} className="hover:bg-red-50">
+                  <td className="px-4 py-2 border">{order.id}</td>
+                  <td className="px-4 py-2 border">{order.name}</td>
+                  <td className="px-4 py-2 border">{order.desc}</td>
+                  <td className="px-4 py-2 border">{order.price}</td>
+                  <td className="px-4 py-2 border">{order.quantity}</td>
+                  <td className="px-4 py-2 border">
+                    ${order.price * order.quantity}
+                  </td>
+                  <td className="px-4 py-2 border">
+                    <span
+                      className={`px-2 py-1 rounded text-white ${
+                        order.status === "DELIVERED"
+                          ? "bg-green-500"
+                          : order.status === "PROGRESSING"
+                          ? "bg-yellow-500"
+                          : order.status === "PENDING"
+                          ? "bg-red-500"
+                          : order.status === "PREPARED"
+                          ? "bg-blue-500"
+                          : ""
+                      }`}
+                    >
+                      {order.status}
+                    </span>
+                  </td>
+
+                  <td className="px-4 py-2 border">{order.waiting_time}</td>
+                  <td className="px-4 py-2 text-center border">
+                    <button
+                      onClick={() => {
+                        if (order.status === "PENDING") {
+                          handle_deleteOrder(order.id);
+                        } else {
+                          alert("Cannot be deleted now!");
+                        }
+                      }}
+                      className="px-4 py-2 text-white bg-red-500 rounded hover:bg-red-600"
+                    >
+                      Cancel Order
+                    </button>
+                  </td>
+                </tr>
+              ))}
           </tbody>
         </table>
-        <div className="mt-4 text-right">
-          <p className="text-xl font-bold text-red-600">
-            Total Amount: ${totalAmount}
-          </p>
-        </div>
+        {foodOrders && (
+          <div className="mt-4 text-right">
+            <p className="text-xl font-bold text-red-600">
+              Total Amount: ${parseFloat(totalAmount().toFixed(3))}
+            </p>
+          </div>
+        )}
       </div>
     </div>
   );

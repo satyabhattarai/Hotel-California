@@ -12,10 +12,14 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('auth', function (Blueprint $table) {
-            $table->string('username')->unique();
-            $table->string('password');
-            $table->enum('role', ['manager', 'chief', 'staff', 'client'])->default('client');
-            $table->timestamps();
+               $table->id();
+    $table->string('username')->unique();
+    $table->string('password');
+    $table->enum('rank', ['MANAGER', 'CHEF', 'STAFF'])->default('STAFF');
+    $table->string('address');
+    $table->string('image');
+    $table->string('phone');
+    $table->timestamps();
         });
     }
 

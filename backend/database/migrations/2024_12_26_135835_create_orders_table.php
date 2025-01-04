@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('price');
             $table->text('desc');
             $table->integer('waiting_time')->nullable();
-            $table->enum('status', ['DELIVERED', 'PROGRESSING', 'PENDING'])->default('PENDING');
+            $table->enum('status', ['DELIVERED', 'PROGRESSING', 'PREPARED', 'PENDING'])->default('PENDING');
             $table->timestamps();
         });
     }

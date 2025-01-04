@@ -13,6 +13,7 @@ class Menu extends Model
         'name',
         'image',
         'category',
+        'waiting_time',
         'alt',
         'desc',
         'price',

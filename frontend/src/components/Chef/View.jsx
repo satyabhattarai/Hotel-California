@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from "react";
 
-import { Outlet } from "react-router-dom";
-import Sidebar from "./Sidebar";
 import axios from "axios";
 
-const Dashboard = () => {
+const View = () => {
   const [orders, set_Orders] = useState([]);
 
   useEffect(() => {
@@ -27,27 +25,16 @@ const Dashboard = () => {
     }
   };
 
-  const [tableCounter, setTableCount] = useState(0);
-
-  useEffect(() => {
-    setTableCount(Object.keys(groupedOrders).length);
-  }, [orders]);
-
   // Group orders by table_number
   const groupedOrders = orders.reduce((acc, order) => {
     acc[order.table_number] = acc[order.table_number] || [];
     acc[order.table_number].push(order);
     return acc;
   }, {});
+  
 
   return (
     <div className="min-h-screen p-8 bg-gray-100">
-      <h1 className="mb-8 text-3xl font-bold text-center text-red-600">
-        Currently there are {tableCounter} tables busy.
-      </h1>
-      <h1 className="mb-8 text-3xl font-bold text-center text-red-600">
-        Currently there are 4 employees present.
-      </h1>
       <h1 className="mb-8 text-3xl font-bold text-center text-red-600">
         Restaurant Orders
       </h1>
@@ -92,4 +79,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default View;

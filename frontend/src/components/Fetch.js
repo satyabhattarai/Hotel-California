@@ -13,12 +13,14 @@ const Fetch = () => {
       console.error("Error fetching data:", error);
     }
   };
+
   return (
     <div onClick={fetch}>
       click here to fetch
       {/* {data && <div>
         {data.od}
         </div>} */}
+
     </div>
   );
 };

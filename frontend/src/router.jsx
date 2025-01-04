@@ -1,29 +1,34 @@
-import AddEmployee from "./components/Manager/AddEmployee";
+import AddEmployee from "./components/Manager/EmployeeManagement";
 import AddExtraItem from "./components/AddExtraItem";
 import AddInventory from "./components/Manager/AddInventory";
-import AddMenu from "./components/Manager/AddMenu";
+import AddMenu from "./components/Manager/MenuManagement";
 import App from "./App";
 import Attendance from "./components/Manager/Attendance";
 import Cart from "./pages/cart";
-import Chef from "./pages/chef";
-import ChefPortal from "./components/Chef/ChefPortal";
+import ChefDashboard from './components/Chef/Dashboard';
+import ChefRequest from './components/Chef/Request';
+import ChefSidebar from './components/Chef/Sidebar';
+import ChefView from './components/Chef/View';
 import CleaningAlert from "./components/Waiter/CleaningAlert";
 import ClientDashboard from "./components/Client/Dashboard";
 import ClientHistory from "./components/Client/History";
 import ClientMenu from "./components/Client/Menu";
 import ClientPayment from "./components/Client/Payment";
 import ClientSidebar from "./components/Client/Sidebar";
-import Dashboard from "./components/Manager/Dashboard";
+import EmployeeManagement from "./components/Manager/EmployeeManagement";
 import Fetch from "./components/Fetch";
 import Home from "./pages/home";
 import ItemsAlert from "./components/Waiter/ItemsAlert";
 import Login from "./pages/login";
+import ManagerDashboard from "./components/Manager/Dashboard";
+import ManagerHistory from "./components/Manager/History";
+import ManagerSidebar from "./components/Manager/Sidebar";
 import Menu from "./pages/menu";
+import MenuManagement from "./components/Manager/MenuManagement";
 import Profile from "./pages/profile";
 import Register from "./pages/register";
 import Reservation from "./pages/reservation";
 import Reviews from "./components/Waiter/Reviews";
-import Rewards from "./components/Manager/Rewards";
 import TableOverview from "./components/Waiter/TableOverview";
 import TableReserved from "./components/Waiter/TableReserved";
 import TableStatus from "./components/Waiter/TableStatus";
@@ -62,7 +67,25 @@ const router = createBrowserRouter([
       },
       {
         path: "chef",
-        element: <Chef />,
+        element: <ChefSidebar />,
+        children: [
+          {
+            index: true,
+            element: <ChefDashboard />,
+          },
+          {
+            path: "dashboard",
+            element: <ChefDashboard />,
+          },
+          {
+            path: "view_orders",
+            element: <ChefView />,
+          },
+          {
+            path: "request",
+            element: <ChefRequest />,
+          },
+        ],
       },
       {
         path: "reservation",
@@ -72,24 +95,29 @@ const router = createBrowserRouter([
         path: "addextraitem",
         element: <AddExtraItem />,
       },
-
-      {
-        path: "chefportal",
-        element: <ChefPortal />,
-      },
-
       {
         path: "manager",
-        element: <Dashboard />,
-
+        element: <ManagerSidebar />,
         children: [
-          // { called sidebar in dashboard instead
-          //   index: true,
-          //   element: <Sidebar />,
-          // },
           {
-            path: "addinventory",
-            element: <AddInventory />,
+            index: true,
+            element: <ManagerDashboard />,
+          },
+          {
+            path: "dashboard",
+            element: <ManagerDashboard />,
+          },
+          {
+            path: "menu_management",
+            element: <MenuManagement />,
+          },
+          {
+            path: "history",
+            element: <ManagerHistory />,
+          },
+          {
+            path: "employee_management",
+            element: <EmployeeManagement />,
           },
           {
             path: "attendance",
@@ -103,10 +131,7 @@ const router = createBrowserRouter([
             path: "addmenu",
             element: <AddMenu />,
           },
-          {
-            path: "rewards",
-            element: <Rewards />,
-          },
+         
         ],
       },
       {
