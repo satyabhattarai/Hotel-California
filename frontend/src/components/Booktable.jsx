@@ -2,20 +2,39 @@ import React, { useRef, useState } from "react";
 
 import axios from "axios";
 
-const Booktable = () => {
+const Booktable = (data) => {
   const [showPopup, setShowPopup] = useState(false);
-
+console.log(data);
   const nameRef = useRef();
   const phoneRef = useRef();
   const addressRef = useRef();
   const familySizeRef = useRef();
   const tableRef = useRef();
   const dateRef = useRef();
-  const timeRef = useRef();
+  const start_timeRef = useRef();
+  const end_timeRef = useRef();
   const messageRef = useRef();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    const selectedDate = new Date(dateRef.current.value);
+    const today = new Date();
+    today.setHours(0, 0, 0, 0); // Reset time for accurate date comparison
+
+    if (selectedDate < today) {
+      alert("Please select today's date or a future date.");
+      return;
+    }
+
+    const startTime = start_timeRef.current.value;
+    const endTime = end_timeRef.current.value;
+
+    if (startTime >= endTime) {
+      alert("Start time must be earlier than end time.");
+      return;
+    }
+
     const formData = {
       name: nameRef.current.value,
       number: phoneRef.current.value,
@@ -23,75 +42,32 @@ const Booktable = () => {
       familySize: familySizeRef.current.value,
       table_number: tableRef.current.value,
       date: dateRef.current.value,
-      time: timeRef.current.value,
+      start_time: start_timeRef.current.value,
+      end_time: end_timeRef.current.value,
       message: messageRef.current.value,
     };
+
     console.log("Form Data:", formData);
     try {
-      if (await checkNumber(formData)) {
-        alert("found");
-      } else {
-       await RegisterClient(formData);
-      }
       await RegisterReservation(formData);
+      setShowPopup(true);
     } catch (err) {
       alert(err);
     }
-
-    setShowPopup(true);
   };
 
-  const checkNumber = async (formData) => {
-    const filters = {
-      number: formData.number,
-    };
-
-    try {
-      const response = await axios.post(
-        "http://127.0.0.1:8000/api/client/check_number",
-        filters
-      );
-
-      if (response.data.message === "Client found") {
-        return true;
-      } else {
-        return false;
-      }
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    }
-  };
-
-  const RegisterClient = async (formdata) => {
- const formData = {
-   number: formdata.number,
-   name: formdata.name,
-   visits: 1,
- };
-    console.log(formData);
-    try {
-      const response = await axios.post(
-        "http://127.0.0.1:8000/api/client/register",
-        formData
-      );
-      alert(response.data.message);
-    } catch (error) {
-      console.error(error.response.data);
-      alert("An error occurred.");
-    }
-  };
   const RegisterReservation = async (formdata) => {
-
-  const formData = {
-    number: formdata.number,
-    name: formdata.name,
-    address: formdata.address,
-    date: formdata.date,
-    size: formdata.familySize,
-    message: formdata.message,
-    table_number: formdata.table_number,
-    time: formdata.time,
-  };
+    const formData = {
+      number: formdata.number,
+      name: formdata.name,
+      address: formdata.address,
+      date: formdata.date,
+      size: formdata.familySize,
+      message: formdata.message,
+      table_number: formdata.table_number,
+      start_time: formdata.start_time,
+      end_time: formdata.end_time,
+    };
 
     console.log(formData);
     try {
@@ -100,6 +76,7 @@ const Booktable = () => {
         formData
       );
       alert(response.data.message);
+      window.location.reload();
     } catch (error) {
       console.error(error.response.data);
       alert("An error occurred.");
@@ -147,33 +124,41 @@ const Booktable = () => {
           />
           <label>
             Table :
-            <select
+            <input
               ref={tableRef}
+              value={data.props[0].table_number}
+              disabled
               className="w-full p-2 border border-gray-400 rounded"
-            >
-              <option value="1T1">1T1</option>
-              <option value="1T2">1T2</option>
-              <option value="1T3">1T3</option>
-              <option value="2T1">2T1</option>
-              <option value="2T2">2T2</option>
-              <option value="2T3">2T3</option>
-            </select>
+            />
           </label>
 
           <label>
             Date :
             <input
               type="date"
-              name="date"
+              value={data.props[0].date}
+              disabled
               ref={dateRef}
               className="w-full p-2 border border-gray-400 rounded"
             />
           </label>
           <label>
-            Time :
+            Start Time :
             <input
               type="time"
-              ref={timeRef}
+              ref={start_timeRef}
+              value={data.props[0].start_time}
+              disabled
+              className="w-full p-2 border border-gray-400 rounded"
+            />
+          </label>
+          <label>
+            End Time :
+            <input
+              type="time"
+              ref={end_timeRef}
+              value={data.props[0].end_time}
+              disabled
               className="w-full p-2 border border-gray-400 rounded"
             />
           </label>
@@ -222,17 +207,6 @@ const Booktable = () => {
           Reserve Now
         </button>
       </div>
-      {showPopup && (
-        <div
-          className="fixed top-0 left-0 flex items-center justify-center w-full h-full bg-black bg-opacity-50"
-          onClick={() => setShowPopup(false)}
-        >
-          <div className="p-8 text-center text-white bg-green-500 rounded-lg">
-            <p className="text-xl font-semibold">Your table is booked!</p>
-            <p>Enjoy your meal!</p>
-          </div>
-        </div>
-      )}
     </form>
   );
 };

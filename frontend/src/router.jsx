@@ -1,39 +1,32 @@
-import AddEmployee from "./components/Manager/EmployeeManagement";
-import AddExtraItem from "./components/AddExtraItem";
-import AddInventory from "./components/Manager/AddInventory";
-import AddMenu from "./components/Manager/MenuManagement";
 import App from "./App";
 import Attendance from "./components/Manager/Attendance";
-import Cart from "./pages/cart";
-import ChefDashboard from './components/Chef/Dashboard';
-import ChefRequest from './components/Chef/Request';
-import ChefSidebar from './components/Chef/Sidebar';
-import ChefView from './components/Chef/View';
-import CleaningAlert from "./components/Waiter/CleaningAlert";
+import ChefDashboard from "./components/Chef/Dashboard";
+import ChefRequest from "./components/Chef/Request";
+import ChefSidebar from "./components/Chef/Sidebar";
+import ChefView from "./components/Chef/View";
 import ClientDashboard from "./components/Client/Dashboard";
 import ClientHistory from "./components/Client/History";
 import ClientMenu from "./components/Client/Menu";
 import ClientPayment from "./components/Client/Payment";
+import ClientRequest from "./components/Client/Request";
 import ClientSidebar from "./components/Client/Sidebar";
 import EmployeeManagement from "./components/Manager/EmployeeManagement";
-import Fetch from "./components/Fetch";
 import Home from "./pages/home";
-import ItemsAlert from "./components/Waiter/ItemsAlert";
 import Login from "./pages/login";
+import ManagerAlerts from "./components/Manager/Alerts";
 import ManagerDashboard from "./components/Manager/Dashboard";
 import ManagerHistory from "./components/Manager/History";
+import ManagerReservation from "./components/Manager/Reservation";
 import ManagerSidebar from "./components/Manager/Sidebar";
 import Menu from "./pages/menu";
 import MenuManagement from "./components/Manager/MenuManagement";
-import Profile from "./pages/profile";
-import Register from "./pages/register";
 import Reservation from "./pages/reservation";
-import Reviews from "./components/Waiter/Reviews";
-import TableOverview from "./components/Waiter/TableOverview";
-import TableReserved from "./components/Waiter/TableReserved";
-import TableStatus from "./components/Waiter/TableStatus";
-import WaiterDashboard from "./components/Waiter/WaiterDashboard";
-import Wishlist from "./pages/whishlist";
+import WaiterAlerts from "./components/Waiter/Alerts";
+import WaiterDashboard from "./components/Waiter/Dashboard";
+import WaiterHistory from "./components/Waiter/History";
+import WaiterOverview from "./components/Waiter/View";
+import WaiterReservation from "./components/Waiter/Reservation";
+import WaiterSidebar from "./components/Waiter/Sidebar";
 import { createBrowserRouter } from "react-router-dom";
 
 const router = createBrowserRouter([
@@ -49,91 +42,15 @@ const router = createBrowserRouter([
         path: "menu",
         element: <Menu />,
       },
-      {
-        path: "cart",
-        element: <Cart />,
-      },
-      {
-        path: "wishlist",
-        element: <Wishlist />,
-      },
-      {
-        path: "profile",
-        element: <Profile />,
-      },
-      {
-        path: "fetch",
-        element: <Fetch />,
-      },
-      {
-        path: "chef",
-        element: <ChefSidebar />,
-        children: [
-          {
-            index: true,
-            element: <ChefDashboard />,
-          },
-          {
-            path: "dashboard",
-            element: <ChefDashboard />,
-          },
-          {
-            path: "view_orders",
-            element: <ChefView />,
-          },
-          {
-            path: "request",
-            element: <ChefRequest />,
-          },
-        ],
-      },
+
+
+
+
       {
         path: "reservation",
         element: <Reservation />,
       },
-      {
-        path: "addextraitem",
-        element: <AddExtraItem />,
-      },
-      {
-        path: "manager",
-        element: <ManagerSidebar />,
-        children: [
-          {
-            index: true,
-            element: <ManagerDashboard />,
-          },
-          {
-            path: "dashboard",
-            element: <ManagerDashboard />,
-          },
-          {
-            path: "menu_management",
-            element: <MenuManagement />,
-          },
-          {
-            path: "history",
-            element: <ManagerHistory />,
-          },
-          {
-            path: "employee_management",
-            element: <EmployeeManagement />,
-          },
-          {
-            path: "attendance",
-            element: <Attendance />,
-          },
-          {
-            path: "addemployee",
-            element: <AddEmployee />,
-          },
-          {
-            path: "addmenu",
-            element: <AddMenu />,
-          },
-         
-        ],
-      },
+
       {
         path: "client",
         element: <ClientSidebar />,
@@ -158,38 +75,101 @@ const router = createBrowserRouter([
             path: "history",
             element: <ClientHistory />,
           },
+          {
+            path: "request",
+            element: <ClientRequest />,
+          },
         ],
       },
-
+    ],
+  },
+  {
+    path: "waiter",
+    element: <WaiterSidebar />,
+    children: [
       {
-        path: "waiter",
+        index: true,
         element: <WaiterDashboard />,
-        children: [
-          {
-            path: "reviews",
-            element: <Reviews />,
-          },
-          {
-            path: "cleaningalert",
-            element: <CleaningAlert />,
-          },
-          {
-            path: "itemsalert",
-            element: <ItemsAlert />,
-          },
-          {
-            path: "tablereserved",
-            element: <TableReserved />,
-          },
-          {
-            path: "tablestatus",
-            element: <TableStatus />,
-          },
-          {
-            path: "tableoverview/:tableId",
-            element: <TableOverview />,
-          },
-        ],
+      },
+      {
+        path: "dashboard",
+        element: <WaiterDashboard />,
+      },
+      {
+        path: "table_overview",
+        element: <WaiterOverview />,
+      },
+      {
+        path: "reservation",
+        element: <WaiterReservation />,
+      },
+      {
+        path: "history",
+        element: <WaiterHistory />,
+      },
+      {
+        path: "alerts",
+        element: <WaiterAlerts />,
+      },
+    ],
+  },
+  {
+    path: "manager",
+    element: <ManagerSidebar />,
+    children: [
+      {
+        index: true,
+        element: <ManagerDashboard />,
+      },
+      {
+        path: "dashboard",
+        element: <ManagerDashboard />,
+      },
+      {
+        path: "menu_management",
+        element: <MenuManagement />,
+      },
+      {
+        path: "history",
+        element: <ManagerHistory />,
+      },
+      {
+        path: "employee_management",
+        element: <EmployeeManagement />,
+      },
+      {
+        path: "attendance",
+        element: <Attendance />,
+      },
+      {
+        path: "reservation",
+        element: <ManagerReservation />,
+      },
+      {
+        path: "alerts",
+        element: <ManagerAlerts />,
+      },
+    ],
+  },
+  {
+    path: "chef",
+    element: <ChefSidebar />,
+    children: [
+      {
+        index: true,
+        element: <ChefDashboard />,
+      },
+      {
+        path: "dashboard",
+        element: <ChefDashboard />,
+      },
+      {
+        path: "view_orders",
+        element: <ChefView />,
+      },
+      {
+        path: "request",
+        element: <ChefRequest />,
       },
     ],
   },
@@ -198,10 +178,7 @@ const router = createBrowserRouter([
     path: "login",
     element: <Login />,
   },
-  {
-    path: "register",
-    element: <Register />,
-  },
+
 ]);
 
 export default router;

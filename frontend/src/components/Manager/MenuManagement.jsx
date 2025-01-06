@@ -13,7 +13,6 @@ const MenuManagement = () => {
   const ingredientsRef = useRef();
 
   const categories = [
-
     "Breakfast",
     "Momo",
     "Pizza",
@@ -57,8 +56,6 @@ const MenuManagement = () => {
       );
       alert(response.data.message);
       window.location.reload();
-
-
     } catch (error) {
       console.error("Error uploading menu item:", error);
       alert("Failed to upload menu item.");
@@ -81,8 +78,7 @@ const MenuManagement = () => {
     }
   };
 
-  const deleteMenuItem = async () => {
-    const menuId = deleteRef.current.value;
+  const deleteMenuItem = async (menuId) => {
 
     if (!menuId) {
       alert("Please enter a valid menu ID to delete.");
@@ -186,21 +182,7 @@ const MenuManagement = () => {
       <div className="w-1/2 mx-auto mt-10">
         <h2 className="mb-6 text-2xl font-bold text-center">Menu List</h2>
 
-        {/* DELETE MENU FORM */}
-        <div className="flex items-center justify-center gap-4 mb-6">
-          <input
-            type="number"
-            ref={deleteRef}
-            placeholder="Enter Menu ID to Delete"
-            className="w-1/2 p-2 border rounded"
-          />
-          <button
-            onClick={deleteMenuItem}
-            className="px-4 py-2 font-bold text-white bg-red-500 rounded"
-          >
-            Delete
-          </button>
-        </div>
+
 
         {/* MENU LIST */}
         <div className="grid grid-cols-2 gap-6">
@@ -215,6 +197,17 @@ const MenuManagement = () => {
               <p className="text-gray-600">{item.category}</p>
               <p className="font-bold text-red-500">${item.price}</p>
               <p className="text-sm text-gray-500">ID: {item.id}</p>
+              <div className="flex items-center justify-center">
+                {" "}
+                <span
+                  onClick={() => {
+                    deleteMenuItem(item.id);
+                  }}
+                  className="p-5 text-lg text-white bg-red-500 cursor-pointer rounded-2xl"
+                >
+                  Delete
+                </span>
+              </div>
             </div>
           ))}
         </div>

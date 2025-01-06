@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from "react";
 import axios from "axios";
 
 const EmployeeManagement = () => {
-  const usernameRef = useRef();
+  const nameRef = useRef();
   const passwordRef = useRef();
   const rankRef = useRef();
   const addressRef = useRef();
@@ -31,7 +31,7 @@ const EmployeeManagement = () => {
     e.preventDefault();
 
     const formDataToSend = new FormData();
-    formDataToSend.append("username", usernameRef.current.value);
+    formDataToSend.append("name", nameRef.current.value);
     formDataToSend.append("password", passwordRef.current.value);
     formDataToSend.append("rank", rankRef.current.value);
     formDataToSend.append("address", addressRef.current.value);
@@ -83,11 +83,11 @@ const EmployeeManagement = () => {
 
           <div className="mb-4">
             <label className="block font-semibold text-gray-700">
-              Username
+              Phone
             </label>
             <input
               type="text"
-              ref={usernameRef}
+              ref={phoneRef}
               required
               className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:border-red-500"
             />
@@ -129,10 +129,10 @@ const EmployeeManagement = () => {
           </div>
 
           <div className="mb-4">
-            <label className="block font-semibold text-gray-700">Phone</label>
+            <label className="block font-semibold text-gray-700">Full Name</label>
             <input
-              type="number"
-              ref={phoneRef}
+              type="test"
+              ref={nameRef}
               required
               className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:border-red-500"
             />
@@ -166,7 +166,7 @@ const EmployeeManagement = () => {
             <table className="w-full border border-collapse border-gray-300">
               <thead>
                 <tr className="text-white bg-red-500">
-                  <th className="p-2 border border-gray-300">Username</th>
+                  <th className="p-2 border border-gray-300">Full Name</th>
                   <th className="p-2 border border-gray-300">Rank</th>
                   <th className="p-2 border border-gray-300">Address</th>
                   <th className="p-2 border border-gray-300">Phone</th>
@@ -179,7 +179,7 @@ const EmployeeManagement = () => {
                   users.map((user) => (
                     <tr key={user.id} className="transition hover:bg-gray-100">
                       <td className="p-2 border border-gray-300">
-                        {user.username}
+                        {user.name}
                       </td>
                       <td className="p-2 border border-gray-300">
                         {user.rank}

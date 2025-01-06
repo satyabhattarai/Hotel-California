@@ -3,14 +3,15 @@ import React, { useRef } from "react";
 import axios from "axios";
 
 const Request = () => {
-  const inputRef = useRef(null);
+  const table_number = localStorage.getItem('TABLE_NUMBER');
   const messageRef = useRef(null);
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     const formData = {
+      table_number: table_number,
       message: messageRef.current.value,
-      rank: "CHEF",
+      rank: "CLIENT",
     };
     try {
       const response = await axios.post(
@@ -18,7 +19,7 @@ const Request = () => {
         formData
       );
       alert(response.data.message);
-      window.location.href = '/chef';
+      window.location.reload();
     } catch (error) {
       console.error(error.response.data);
       alert("An error occurred.");
@@ -28,12 +29,8 @@ const Request = () => {
   };
   return (
     <div className="max-w-md p-6 mx-auto bg-white rounded-lg shadow-md">
-      <h2 className="mb-4 text-xl font-semibold text-center">
-        Make a Request, Chef
-      </h2>
+      <h2 className="mb-4 text-xl font-semibold text-center">Make a Request</h2>
       <form onSubmit={handleSubmit}>
-
-
         <div className="mb-4">
           <label
             htmlFor="message"

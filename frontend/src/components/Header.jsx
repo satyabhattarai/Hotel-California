@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 
 const Header = () => {
   const user = localStorage.getItem("CLIENT");
+    const table_number = localStorage.getItem("TABLE_NUMBER");
   return (
     <div className="w-screen">
       <div className=" flex bg-[#c74040] w-full h-[35px] items-center gap-8 px-8 drop-shadow-md ">
@@ -14,7 +15,11 @@ const Header = () => {
         </div>
         <ul className="flex gap-8 uppercase">
           <li className="border-b-2 border-transparent hover:border-[#CC3333] transition-all duration-100 ease-in-out p-2">
-            <Link to="/">Home</Link>
+            {table_number ? (
+              <Link to={`/${table_number}`}>Home</Link>
+            ) : (
+              <Link to="/">Home</Link>
+            )}
           </li>
 
           <li className="border-b-2 border-transparent hover:border-[#CC3333] transition-all duration-100 ease-in-out p-2">
@@ -26,6 +31,9 @@ const Header = () => {
           </li>
           <li className="border-b-2 border-transparent hover:border-[#CC3333] transition-all duration-100 ease-in-out p-2">
             <a href="/">Contact Us</a>
+          </li>
+          <li className="border-b-2 border-transparent hover:border-[#CC3333] transition-all duration-100 ease-in-out p-2">
+            <a href="/reservation">Reservation</a>
           </li>
         </ul>
         <div className="flex gap-8 mr-8">

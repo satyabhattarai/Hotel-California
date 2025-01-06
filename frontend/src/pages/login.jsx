@@ -2,23 +2,34 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import { useRef } from "react";
 const Login = () => {
-  const username = useRef();
+  const phone = useRef();
   const password = useRef();
   const submitlogin = async (e) => {
     e.preventDefault();
     const filters = {
-      username: username.current.value,
+      phone: phone.current.value,
       password: password.current.value,
     };
 
     try {
       const response = await axios.get("http://127.0.0.1:8000/api/login", {
-        params: filters, 
+        params: filters,
       });
       if (response.data.length > 0) {
-        alert(response.data[0].role);
-        localStorage.setItem("USER", response.data[0].username);
-        localStorage.setItem("ROLE", response.data[0].role);
+        alert(`welcome ${response.data[0].rank}`);
+        const user = response.data[0].rank;
+        localStorage.setItem(user , response.data[0].name);
+        if (user === "CHEF") {
+          window.location.href = "/chef";
+        }
+        if (user === "MANAGER") {
+          window.location.href = "/MANAGER";
+        }
+        if (user === "STAFF") {
+          window.location.href = "/waiter";
+        }
+
+
       } else {
         {
           alert("wrong credentials");
@@ -45,12 +56,12 @@ const Login = () => {
           <h1 className="text-[#2A435D] text-3xl font-bold pb-16">Login</h1>
 
           <label className="text-[#395471] font-semibold">
-            Username
+           Phone
             <input
-              type="text"
+              type="number"
               autoComplete="off"
               id="username"
-              ref={username}
+              ref={phone}
               className="block w-1/2 px-4 py-2 transition-shadow duration-300 border rounded-lg focus:shadow-outline focus:outline-none focus:border-red-600 required:"
             />
           </label>

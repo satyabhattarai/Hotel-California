@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Fetch;
+use App\Models\Alert;
 use App\Models\Attendance;
 use App\Models\Auth;
 use App\Models\Client;
+use App\Models\Reservation;
 use App\Models\Menu;
 use App\Models\Order;
 use App\Models\History;
@@ -48,12 +50,12 @@ class FetchController extends Controller
     // for login auth
     public function login(Request $request)
     {
-        $username = $request->input('username');
+        $phone = $request->input('phone');
         $password = $request->input('password');
 
 
-        if ($username && $password) {
-            $results = Auth::where('username', $username)
+        if ($phone && $password) {
+            $results = Auth::where('phone', $phone)
                 ->where('password', $password)->get();
             return response()->json($results);
         }
@@ -148,7 +150,12 @@ class FetchController extends Controller
      public function manager_fetch_history(Request $request)
     {
         $query = $request->query('query');
-        $historyDetails = History::where('user_number', 'LIKE', "%" . $query . "%")->orWhere('user_name', 'LIKE', "%" . $query . "%")->orWhere('table_number',$query)->orWhere('payment_date',  'LIKE', "%" . $query . "%")->get();
+        if($query){
+ $historyDetails = History::where('user_number', 'LIKE', "%" . $query . "%")->orWhere('user_name', 'LIKE', "%" . $query . "%")->orWhere('table_number',$query)->orWhere('payment_date',  'LIKE', "%" . $query . "%")->get();
+        }else{
+            $historyDetails = History::get();
+        }
+
 
         return response()->json(['historyDetails' => $historyDetails]);
     }
@@ -173,4 +180,53 @@ class FetchController extends Controller
 
     return response()->json($users);
 }
+
+public function manager_reservations_fetch()
+    {
+        return response()->json(Reservation::all());
+    }
+
+ public function manager_alerts_fetch()
+    {
+        return response()->json(Alert::all());
+    }
+    public function waiter_alerts_fetch()
+    {
+
+        return response()->json(Alert::where('rank','CLIENT')->get());
+    }
+
+
+public function checkReservation(Request $request)
+{
+    $date = $request->input('date');
+    $start_time = date("H:i:s", strtotime($request->input('start_time')));
+    $end_time = date("H:i:s", strtotime($request->input('end_time')));
+    $table_number = $request->input('table_number'); //
+
+    $existingReservations = Reservation::where('date', $date)
+        ->where('table_number', $table_number) // Ensure same table
+        ->where(function ($query) use ($start_time, $end_time) {
+            $query->where('start_time', '<', $end_time)  // Overlapping start time
+                  ->where('end_time', '>', $start_time); // Overlapping end time
+        })
+        ->get(['table_number', 'date', 'start_time', 'end_time']);
+
+    if ($existingReservations->isEmpty()) {
+        return response()->json(['available' => true]);
+    } else {
+        return response()->json([
+            'available' => false,
+            'reservations' => $existingReservations
+        ]);
+    }
+}
+
+
+
+
+
+
+
+
 }

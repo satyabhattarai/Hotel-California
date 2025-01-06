@@ -7,6 +7,8 @@ use App\Http\Controllers\FetchController;
 use App\Http\Controllers\DeleteController;
 use App\Http\Controllers\UpdateController;
 
+use App\Models\Alert;
+
 Route::post('/forms', [FormController::class, 'store']);
 Route::get('/fetch', [FetchController::class, 'index']);
 Route::get('/menu', [FetchController::class, 'fetch_menu']);
@@ -37,5 +39,23 @@ Route::get('/manager/fetch_history', [FetchController::class, 'manager_fetch_his
 Route::get('/manager/attendance', [FetchController::class, 'getAllAttendance']);
 Route::post('/manager/employee/register', [FormController::class, 'employee_register']);
 Route::get('/manager/employee/fetch', [FetchController::class, 'employee_fetch']);
-
 Route::delete('manager/employee/delete/{id}', [DeleteController::class, 'delete_employee']);
+
+Route::get('manager/reservations/fetch', [FetchController::class, 'manager_reservations_fetch']);
+Route::delete('manager/reservations/delete/{id}', [DeleteController::class, 'manager_reservations_delete']);
+Route::get('manager/alerts/fetch', [FetchController::class, 'manager_alerts_fetch']);
+Route::delete('manager/alerts/delete/{id}', [DeleteController::class, 'manager_alerts_delete']);
+Route::get('/check-reservation', [FetchController::class, 'checkReservation']);
+Route::get('waiter/alerts/fetch', [FetchController::class, 'waiter_alerts_fetch']);
+Route::get('waiter/alerts/fetch', [FetchController::class, 'waiter_alerts_fetch']);
+
+Route::put('/waiter/alerts/response/{id}', [UpdateController::class, 'waiter_alerts_response']);
+
+
+Route::get('/alerts/fetch', function () {
+    $alerts = Alert::where('rank', 'CLIENT')
+        ->where('status', 'PENDING')
+        ->get();
+
+    return response()->json($alerts);
+});

@@ -16,8 +16,9 @@ return new class extends Migration
             $table->string('name');
             $table->string('number');
             $table->string('address');
-            $table->string('date');
-            $table->time('time');
+            $table->date('date');
+            $table->time('start_time');
+            $table->time('end_time');
             $table->integer('size');
             $table->text('message')->nullable();
             $table->string('table_number');

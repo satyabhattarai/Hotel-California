@@ -1,8 +1,14 @@
+import { Link } from "react-router-dom";
+
 const Footer = () => {
   return (
-    <div className="bg-[#2A435D] flex items-center justify-center text-white p-8 mt-8 w-screen">
+    <div>
+     
+
+      <div className="bg-[#2A435D] flex items-center justify-center text-white p-8 mt-8 w-screen">
       Copyright @2024
-    </div>
+    </div></div>
+
   );
 };
 

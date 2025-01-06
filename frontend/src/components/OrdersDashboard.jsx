@@ -1,11 +1,10 @@
 import React, { useState } from "react";
 
-import AddExtraItem from "../components/AddExtraItem";
 import axios from "axios";
 import { useStateContext } from "../ContextProvider";
 
 export default function OrdersDashboard({ setshoworders, orders }) {
-  const { showItems, setShowItems } = useStateContext();
+  
   const baseUrl = process.env.REACT_APP_BACKEND_URL;
 
   const handlePlaceOrder = async () => {

@@ -218,6 +218,14 @@ export default function Home() {
           <p className="text-[#2A435D]">Your Review</p>
         </div>
       </div>
+      <div className="text-center">
+        <Link
+          to={"/login"}
+          className="p-5 text-white bg-red-400 rounded-lg hover:bg-red-600"
+        >
+          <button>LOGIN </button>
+        </Link>
+      </div>
     </>
   );
 }

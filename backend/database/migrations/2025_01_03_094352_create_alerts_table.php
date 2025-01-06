@@ -13,11 +13,9 @@ return new class extends Migration
     {
     Schema::create('alerts', function (Blueprint $table) {
     $table->id();
-    $table->string('user');
-   $table->enum('rank', ['CHEF', 'MANAGER', 'STAFF'])->default('CHEF');
+   $table->enum('rank', ['CHEF', 'CLIENT'])->default('CHEF');
     $table->text('message')->nullable();
     $table->text('table_number')->nullable();
-    $table->enum('type', ['CLEANING', 'CALL', 'OTHER'])->default('OTHER');
     $table->enum('status', ['PENDING', 'COMPLETED'])->default('PENDING');
     $table->timestamps();
 });

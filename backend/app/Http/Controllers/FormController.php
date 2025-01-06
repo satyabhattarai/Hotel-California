@@ -7,7 +7,7 @@ use App\Models\Form;
 use App\Models\Alert;
 use App\Models\Client;
 use App\Models\Auth;
-use App\Models\CleanAlert;
+
 use App\Models\Order;
 use App\Models\Menu;
 use App\Models\History;
@@ -62,19 +62,7 @@ class FormController extends Controller
 
 
 
-    public function create_clean_alert(Request $request)
-    {
-        $validated = $request->validate([
 
-            'tablenumber' => 'required|numeric',
-            'status' => 'required|boolean',
-            'alert_message' => 'required|string',
-        ]);
-
-        $form = CleanAlert::create($validated);
-
-        return response()->json(['message' => 'CleanAlert created successfully'], 201);
-    }
 
     public function order_item(Request $request)
     {
@@ -164,7 +152,8 @@ public function client_reservation(Request $request)
             'number' => 'required|string|max:15',
             'address' => 'required|string|max:255',
             'date' => 'required|date',
-            'time' => 'required',
+            'start_time' => 'required',
+            'end_time' => 'required',
             'size' => 'required|integer|min:1',
             'table_number' => 'required|string|max:10',
             'message' => 'nullable|string',
@@ -184,11 +173,10 @@ public function client_reservation(Request $request)
     public function chef_request(Request $request)
 {
     $request->validate([
-        'user' => 'required|string',
-        'rank' => 'required|in:CHEF,MANAGER,STAFF',
+
+        'rank' => 'required|in:CHEF,CLIENT',
         'message' => 'nullable|string',
         'table_number' => 'nullable|string',
-        'type' => 'nullable|in:CLEANING,CALL,OTHER',
         'status' => 'nullable|in:PENDING,COMPLETED',
     ]);
 
@@ -246,7 +234,7 @@ public function menu_add(Request $request)
     {
 
         $request->validate([
-            'username' => 'required|unique:auth,username',
+            'name' => 'required',
             'password' => 'required',
             'rank' => 'required|in:MANAGER,CHEF,STAFF',
             'address' => 'required',
@@ -261,7 +249,7 @@ public function menu_add(Request $request)
 
 
         $auth = Auth::create([
-            'username' => $request->username,
+            'name' => $request->name,
             'password' => $request->password,
             'rank' => $request->rank,
             'address' => $request->address,

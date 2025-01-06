@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Order;
 use App\Models\Menu;
+use App\Models\Alert;
 use App\Models\Auth;
+use App\Models\Reservation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -66,4 +68,26 @@ public function delete_employee($id)
         $employee->delete();
         return response()->json(['message' => 'Employee deleted successfully!']);
     }
+
+public function manager_reservations_delete($id)
+    {
+        $reservation = Reservation::findOrFail($id);
+        $reservation->delete();
+        return response()->json(['message' => 'Reservation deleted successfully']);
+    }
+
+ public function manager_alerts_delete($id)
+    {
+        $alert = Alert::find($id);
+
+        if (!$alert) {
+            return response()->json(['message' => 'Alert not found'], 404);
+        }
+
+        $alert->delete();
+        return response()->json(['message' => 'Alert deleted successfully']);
+    }
+
+
+
 }
