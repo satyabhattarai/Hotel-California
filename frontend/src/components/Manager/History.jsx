@@ -45,21 +45,21 @@ const History = () => {
   };
 
   return (
-    <div>
-      <h1 className="mt-6 text-3xl font-bold text-center text-gray-800 md:text-5xl">
+    <div className="m-12">
+      <h1 className="mb-8 text-3xl font-bold text-center text-gray-800 md:text-5xl">
         Type to search for a specific record or click the search button to fetch
         all data.
       </h1>
 
       <form
         onSubmit={fetchHistory}
-        className="flex flex-col items-center justify-center mt-6 space-y-4 md:flex-row md:space-y-0 md:space-x-4"
+        className="flex flex-col items-center w-1/2 mt-6 mb-8 space-y-4 md:flex-row md:space-y-0 md:space-x-4"
       >
         <input
           type="text"
           ref={queryRef}
           placeholder="Type to search..."
-          className="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm md:w-80 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+          className="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
         />
         <button
           type="submit"
@@ -69,8 +69,8 @@ const History = () => {
         </button>
       </form>
 
-      <div className="max-w-lg p-6 mx-auto bg-white rounded-lg shadow-lg">
-        <h2 className="text-2xl font-bold text-center text-gray-800">
+      <div className="p-6 mx-auto bg-white rounded-lg shadow-lg ">
+        <h2 className="text-2xl font-bold text-center text-red-700">
           Order History
         </h2>
 

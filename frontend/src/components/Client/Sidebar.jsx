@@ -10,7 +10,7 @@ const Sidebar = () => {
   }
 
   return (
-    <div className="flex">
+    <div className="flex h-screen ">
       <div className="w-64 h-full p-6 text-white bg-red-600">
         <div className="mb-8 text-2xl font-bold text-center">Client Portal</div>
         <ul>

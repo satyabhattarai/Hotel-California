@@ -4,7 +4,7 @@ import axios from "axios";
 import { useStateContext } from "../ContextProvider";
 
 export default function OrdersDashboard({ setshoworders, orders }) {
-  
+
   const baseUrl = process.env.REACT_APP_BACKEND_URL;
 
   const handlePlaceOrder = async () => {
@@ -71,7 +71,7 @@ export default function OrdersDashboard({ setshoworders, orders }) {
                       {orderItem.waiting_time || "30 mins"}
                     </td>
                     <td className="px-4 py-2 border border-gray-300">
-                      ${orderItem.price}
+                      Rs. {orderItem.price}
                     </td>
                     <td className="px-4 py-2 border border-gray-300">
                       ${(orderItem.quantity * orderItem.price).toFixed(2)}

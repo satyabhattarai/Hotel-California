@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 const Header = () => {
   const user = localStorage.getItem("CLIENT");
-    const table_number = localStorage.getItem("TABLE_NUMBER");
+  const table_number = localStorage.getItem("TABLE_NUMBER");
   return (
     <div className="w-screen">
       <div className=" flex bg-[#c74040] w-full h-[35px] items-center gap-8 px-8 drop-shadow-md ">
@@ -57,6 +57,9 @@ const Header = () => {
                 className="cursor-pointer hover:text-red-500"
               >
                 log out
+              </div>
+              <div className="">
+              
               </div>
             </div>
           )}

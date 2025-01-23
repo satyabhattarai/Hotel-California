@@ -208,18 +208,30 @@ const Payment = () => {
   };
 
   return (
-    <div className="max-w-lg p-6 mx-auto bg-white rounded-lg shadow-lg">
+    <div className="p-6 m-8 mx-auto bg-white rounded-lg shadow-lg">
       <h2 className="text-2xl font-bold text-center text-gray-800">
         Payment Summary
       </h2>
 
-      <div>
-        <div>NAME : {userName}</div>
+      <div className="mb-12 text-balance">
+        <div className="flex gap-4 text-2xl">
+          <div className="font-semibold text-blue-400 ">Name:</div>
+          <div className="font-semibold ">{userName}</div>
+        </div>
+        <div className="flex gap-4 text-2xl">
+          <div className="font-semibold text-blue-400">Table number:</div>
+          <div className="font-semibold">{table_number}</div>
+        </div>
 
-        <div>TABLE NO.: {table_number}</div>
-        <div>PHONE: {userNumber}</div>
-        <div>Restaurent: Hotel California</div>
-        <div>Date: {paymentDate} </div>
+        <div className="flex gap-4 text-2xl">
+          <div className="font-semibold text-blue-400">Phone Number:</div>
+          <div className="font-semibold">{userNumber}</div>
+        </div>
+
+        <div className="flex gap-4 text-2xl">
+          <div className="font-semibold text-blue-400">Date:</div>
+          <div className="font-semibold">{paymentDate}</div>
+        </div>
       </div>
       <div className="mt-4">
         <table className="w-full text-left">
@@ -236,9 +248,9 @@ const Payment = () => {
               foodItems?.map((item) => (
                 <tr key={item.id} className="border-t">
                   <td className="px-4 py-2 text-gray-600">{item.name}</td>
-                  <td className="px-4 py-2 text-gray-600">${item.price}</td>
+                  <td className="px-4 py-2 text-blue-600">${item.price}</td>
                   <td className="px-4 py-2 text-gray-600">{item.quantity}</td>
-                  <td className="px-4 py-2 text-gray-600">
+                  <td className="px-4 py-2 text-blue-600">
                     ${item.price * item.quantity}
                   </td>
                 </tr>
@@ -246,38 +258,42 @@ const Payment = () => {
           </tbody>
         </table>
         {foodItems && (
-          <div className="flex items-center justify-between mt-4 text-lg font-semibold">
+          <div className="flex items-center my-12 text-lg font-bold mgap-4">
             <span>Total Amount:</span>
-            <span className="text-green-600">${calculateTotal()}</span>
+            <span className="text-5xl font-bold text-green-600">
+              ${calculateTotal()}
+            </span>
           </div>
         )}
       </div>
-      <div className="mt-6">
-        <button
-          ref={btnRef}
-          onClick={handlePay}
-          className="w-full py-3 text-white bg-red-500 rounded-lg hover:bg-red-600"
-        >
-          Pay via Khalti
-        </button>
-      </div>
-      <div className="mt-6">
-        <button
-          onClick={() => {
-            saveHistory();
-          }}
-          className="w-full py-3 text-white bg-blue-500 rounded-lg hover:bg-blue-600"
-        >
-          Finish Order
-        </button>
-      </div>
-      <div className="mt-6">
-        <button
-          onClick={downloadPDF}
-          className="w-full py-3 text-white bg-blue-500 rounded-lg hover:bg-blue-600"
-        >
-          Download bill
-        </button>
+      <div className="w-1/2 ">
+        <div className="mt-6 ">
+          <button
+            ref={btnRef}
+            onClick={handlePay}
+            className="w-full py-3 text-white bg-red-500 rounded-lg hover:bg-red-600"
+          >
+            Pay via Khalti
+          </button>
+        </div>
+        <div className="mt-6">
+          <button
+            onClick={() => {
+              saveHistory();
+            }}
+            className="w-full py-3 text-white bg-blue-500 rounded-lg hover:bg-blue-600"
+          >
+            Finish Order
+          </button>
+        </div>
+        <div className="mt-6">
+          <button
+            onClick={downloadPDF}
+            className="w-full py-3 text-white bg-blue-500 rounded-lg hover:bg-blue-600"
+          >
+            Download bill
+          </button>
+        </div>
       </div>
     </div>
   );

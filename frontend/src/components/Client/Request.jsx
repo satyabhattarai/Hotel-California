@@ -28,13 +28,13 @@ const Request = () => {
     console.log(formData);
   };
   return (
-    <div className="max-w-md p-6 mx-auto bg-white rounded-lg shadow-md">
-      <h2 className="mb-4 text-xl font-semibold text-center">Make a Request</h2>
+    <div className="w-1/2 p-6 mx-auto mt-12 bg-gray-200 shadow-md rounded--lg">
+      <h2 className="mb-4 text-xl font-semibold text-center text-red-500">Make a Request</h2>
       <form onSubmit={handleSubmit}>
         <div className="mb-4">
           <label
             htmlFor="message"
-            className="block text-sm font-medium text-gray-700"
+            className="block text-sm font-medium text-red-700"
           >
             Message Box
           </label>

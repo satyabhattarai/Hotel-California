@@ -50,7 +50,7 @@ const Menu = () => {
   const [selectedCategory, setSelectedCategory] = useState(categories[0].name);
   const [selectedmenu, setselectedmenu] = useState(null);
   return (
-    <div>
+    <div className="m-8">
       <div className="flex flex-wrap gap-4 pb-8 lg:gap-8 lg:pb-8 lg:p-2">
         {categories.map((cat, index) => (
           <span
@@ -66,7 +66,7 @@ const Menu = () => {
           </span>
         ))}
       </div>
-      <div className="grid items-center justify-between grid-cols-1 gap-8 lg:grid-cols-3 md:grid-cols-2">
+      <div className="grid items-center justify-between grid-cols-1 gap-8 mb-12 lg:grid-cols-2 md:grid-cols-1">
         {MenuItems?.filter((menu) => {
           if (selectedCategory === categories[0].name) {
             return true;
@@ -85,7 +85,7 @@ const Menu = () => {
             <div className="content">
               <div className="title">{menu.name}</div>
               <p className="description">{menu.desc}</p>
-              <p className="price">${menu.price}</p>
+              <p className="price">Rs. {menu.price}</p>
               <p className="category">{menu.category}</p>
             </div>
             <div className="image-container">
@@ -104,7 +104,7 @@ const Menu = () => {
       </div>
       <div className="flex justify-center w-full">
         <button
-          className="px-8 py-2 text-white bg-red-500"
+          className="px-8 py-4 text-white bg-red-500"
           onClick={() => {
             setshoworders(true);
           }}

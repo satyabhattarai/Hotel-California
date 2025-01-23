@@ -128,7 +128,7 @@ export default function Menu() {
           </span>
         ))}
       </div>
-      <div className="grid items-center justify-between grid-cols-1 gap-8 lg:grid-cols-3 md:grid-cols-2">
+      <div className="grid items-center justify-between grid-cols-1 gap-8 m-4 lg:grid-cols-2 md:grid-cols-1">
         {MenuItems?.filter((menu) => {
           if (selectedCategory === categories[0].name) {
             return true;
@@ -147,11 +147,11 @@ export default function Menu() {
             <div className="content">
               <div className="title">{menu.name}</div>
               <p className="description">{menu.desc}</p>
-              <p className="price">${menu.price}</p>
+              <p className="price">Rs. {menu.price}</p>
               <p className="category">{menu.category}</p>
             </div>
             <div className="image-container">
-              <img src={menu.image} alt={menu.alt} className="food-image" />
+              <img src={menu.image} alt={menu.alt} className="object-cover w-full h-full food-image" />
             </div>
           </div>
         ))}
@@ -166,7 +166,7 @@ export default function Menu() {
       </div>
       <div className="flex justify-center w-full">
         <button
-          className="px-8 py-2 text-white bg-red-500"
+          className="px-8 py-2 mt-12 text-white bg-red-500"
           onClick={() => {
             setshoworders(true);
           }}

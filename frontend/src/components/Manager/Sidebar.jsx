@@ -7,13 +7,13 @@ const Sidebar = () => {
   const location = useLocation();
   const user = localStorage.getItem("MANAGER");
   if (!user) {
-    window.location.href = "/";
+    window.location.href = "/login";
   }
 
   return (
     <div className="">
       <Header/>
-      <div className="flex w-full h-[100vh]">
+      <div className="flex w-full h-screen">
         <div className="w-64 h-full p-6 text-white bg-red-600">
           <div className="mb-8 text-2xl font-bold text-center">
             Manager Dashboard

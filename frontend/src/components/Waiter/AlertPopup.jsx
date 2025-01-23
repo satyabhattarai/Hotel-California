@@ -8,10 +8,10 @@ const AlertPopup = ({ alerts, onClose }) => {
         { status }
       );
       if (response.status === 200) {
-        alert("Order accepted successfully.");
+        alert("Alert accepted successfully.");
         window.location.reload();
       } else {
-        alert("Failed to update the order. Please try again.");
+        alert("Failed to update the alert. Please try again.");
       }
     } catch (error) {
       console.error("Error accepting order:", error);
@@ -24,7 +24,7 @@ const AlertPopup = ({ alerts, onClose }) => {
         <h2 className="mb-4 text-xl font-bold text-red-600">⚠️ Alert</h2>
 
         {alerts && (
-         
+
             <div  className="p-3 mb-3 bg-gray-100 rounded">
               {alerts[0].message && (
                 <p className="text-gray-800">{alerts[0].message}</p>

@@ -13,7 +13,7 @@ const Sidebar = () => {
   // Ensure only logged-in staff can access this page
   const user = localStorage.getItem("STAFF");
   if (!user) {
-    window.location.href = "/";
+    window.location.href = "/login";
   }
 
   // Fetch alerts from backend

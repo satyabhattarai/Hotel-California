@@ -7,7 +7,7 @@ const Sidebar = () => {
   const location = useLocation(); // Get the current route
  const user = localStorage.getItem("CHEF");
  if (!user) {
-   window.location.href = "/";
+   window.location.href = "/login";
  }
   return (
     <div>

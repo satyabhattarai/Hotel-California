@@ -13,13 +13,13 @@ return new class extends Migration
     {
         Schema::create('auth', function (Blueprint $table) {
                $table->id();
-    $table->string('name');
-    $table->string('password');
-    $table->enum('rank', ['MANAGER', 'CHEF', 'STAFF'])->default('STAFF');
-    $table->string('address');
-    $table->string('image');
-    $table->string('phone')->unique();
-    $table->timestamps();
+                $table->string('name');
+                $table->string('password');
+                $table->enum('rank', ['MANAGER', 'CHEF', 'STAFF'])->default('STAFF');
+                $table->string('address');
+                $table->string('image');
+                $table->string('phone')->unique();
+                $table->timestamps();
         });
     }
 
