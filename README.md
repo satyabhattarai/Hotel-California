@@ -1,6 +1,27 @@
 
 🏨 Hotel California
 
+## Project- Objectives
+
+    Develop a waiterless smart dining system to modernize restaurant operations and enhance customer convenience in Nepal.
+
+    Enable staff, chefs, and managers to streamline operations and move beyond manual processes using modern technology.
+
+    Implement real-time kitchen tracking to monitor chef order timings and ensure timely service for guests.
+
+    Provide secure online ordering and reservations, making the booking and payment process faster, safer, and more efficient.
+
+
+Enhance the UI/UX and introduce advanced features such as:
+
+    Live auctions for artworks
+
+    Event and workshop bookings
+
+    Order tracking and notifications
+
+    Rating and review system
+    
 ## Installation
 
 backend setup (laravel)
