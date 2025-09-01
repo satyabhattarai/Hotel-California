@@ -12,15 +12,7 @@
     Provide secure online ordering and reservations, making the booking and payment process faster, safer, and more efficient.
 
 
-Enhance the UI/UX and introduce advanced features such as:
 
-    Live auctions for artworks
-
-    Event and workshop bookings
-
-    Order tracking and notifications
-
-    Rating and review system
     
 ## Installation
 
